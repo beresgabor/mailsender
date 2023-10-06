@@ -1,0 +1,26 @@
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        stat: debug
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+  liquibase: INFO
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mailsenderdb
+    username: mailsenderuser
+    password: mailsenderuser
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        generate_statistics: true
+    show-sql: true
+

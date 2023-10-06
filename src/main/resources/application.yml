@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: mailsender
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        default_schema: mailsender
+        jdbc:
+          batch_size: 100
+          lob:
+            non_contextual_creation: true
+        order_inserts: true
+      jakarta:
+        persistence:
+          validation:
+            mode: none
+  jackson:
+    deserialization:
+      adjust_dates_to_context_time_zone: false
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    database-change-log-table: db_migration
+    database-change-log-lock-table: db_migration_lock
+    default-schema: ${spring.application.name}
+    user: mailsender
+    password: mailsender
+    parameters:
+      app_user: ${spring.datasource.username}
+server:
+  tomcat:
+    remote-ip-header: x-forwarded-for
+  http2:
+    enabled: true
+  port: 9090
+
