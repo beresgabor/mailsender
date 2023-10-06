@@ -1,0 +1,42 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 2
+       author: mailsenderuser
+       changes:
+         -  createTable:
+              tableName: confirmations
+              columns:
+                -  column:
+                     name: id
+                     type: uuid
+                     constraints:
+                       primaryKey: true
+                       primaryKeyName: confirmations_pk
+                       nullable: false
+                     remarks: Confirmations table id
+                - column:
+                    name: user_id
+                    type: uuid
+                    constraints:
+                      nullable: false
+                      foreignKeyName: confirmations_fk
+                      references: users(id)
+                      deleteCascade: true
+                    remarks: Id of user
+                -  column:
+                     name: token
+                     type: varchar2(36)
+                     remarks: Generated token
+                -  column:
+                     name: created_date
+                     type: timestamp
+                     remarks: Created date of confirmation
+              remarks: Table of users data
+         -  createIndex:
+              tableName: confirmations
+              indexName: i_confirmations_fk
+              columns:
+                -  column:
+                     name: user_id
+         - sql:
+             sql: grant select, insert, update, delete on confirmations TO ${app_user};

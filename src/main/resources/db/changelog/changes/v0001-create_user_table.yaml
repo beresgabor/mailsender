@@ -1,0 +1,55 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 1
+       author: mailsenderuser
+       changes:
+         -  createTable:
+              tableName: users
+              columns:
+                -  column:
+                     name: id
+                     type: uuid
+                     constraints:
+                       primaryKey: true
+                       primaryKeyName: users_pk
+                       nullable: false
+                     remarks: Users table id
+                -  column:
+                     name: name
+                     type: varchar2(100)
+                     remarks: Name of user
+                -  column:
+                     name: email
+                     type: varchar2(60)
+                     remarks: User email address
+                -  column:
+                     name: password
+                     type: varchar2(200)
+                     remarks: User password
+                -  column:
+                     name: is_enabled
+                     type: boolean
+                     remarks: Is user enabled
+              remarks: Table of users data
+         -  createIndex:
+              tableName: users
+              indexName: i_users_name
+              columns:
+                -  column:
+                     name: name
+         -  createIndex:
+              tableName: users
+              indexName: i_users_name_enabled
+              columns:
+                -  column:
+                     name: name
+                -  column:
+                     name: is_enabled
+         -  createIndex:
+              tableName: users
+              indexName: i_users_email
+              columns:
+                -  column:
+                     name: email
+         - sql:
+             sql: grant select, insert, update, delete on users TO ${app_user};
